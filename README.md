@@ -1,6 +1,6 @@
 # a99 Final Project
 
-## UPDATE
+## Mental Health Tracker
 
 You don't need to accept this assignment since you are already assigned to teams. So, there is not assignment invite link for a99.
 
