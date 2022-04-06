@@ -1,0 +1,19 @@
+{
+  "name": "a99-nashira",
+  "version": "1.0.0",
+  "description": "Final Project Mental Health Tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/comp426-2022-spring/a99-nashira.git"
+  },
+  "author": "Brendan O'Malley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/comp426-2022-spring/a99-nashira/issues"
+  },
+  "homepage": "https://github.com/comp426-2022-spring/a99-nashira#readme"
+}
