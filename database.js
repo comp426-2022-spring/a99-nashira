@@ -18,9 +18,9 @@ const stmt = db.prepare(`
         const sqlInit = `
         CREATE TABLE mentalTracker ( 
             id INTEGER PRIMARY KEY, 
-            name TEXT,
+            username TEXT,
             password VARCHAR,
-            data VARCHAR,
+            record VARCHAR,
             previousRecord INTEGER);
     `;
 
