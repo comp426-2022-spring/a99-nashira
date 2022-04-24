@@ -1,0 +1,136 @@
+<html>
+
+<head>
+    <title>My Mental Health</title>
+    <link rel='stylesheet' href='style.css' />
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <!-- navigation bar -->
+    <base href="/">
+    <section class="mentalTracker">
+    <nav>
+    <a class="logo" href="index.html"><img src="/images/logo.png">
+    <div class="nav-links">
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="dailyLogResults.html">RESULTS</a></li>
+            <li><a href="mentalHealthResources.html">RESOURCES</a></li>
+            <li><a href="dailyLog.html">MENTAL HEALTH LOG</a></li>
+        </ul>
+    </div>
+    </nav>
+    </section>
+
+    <!-- content -->
+    <div class='text-box'>
+        <form id="dailyLog">
+            <label for="uname">User name:</label>
+            <br />
+            <input type="text" id="uname" name="uname">
+            <br />
+            <br />
+            <label for="name">Name:</label>
+            <br />
+            <input type="text" id="name" name="name">
+            <br />
+            <br />
+            <label for="sleep">How many hours of sleep did you get last night?</label>
+            <br />
+            <input type="text" id="sleep" name="sleep">
+            <br />
+            <br />
+            <label for="sleepQuality">How was the quality of your sleep?</label>
+            <select id="sleepQuality" name="sleepQuality">
+                <option value=" "> </option>
+                <option value="great">slept like a log :)</option>
+                <option value="good">good</option>
+                <option value="moderate">okay</option>
+                <option value="bad">still sleepy</option>
+                <option value="poor">sleep deprived :(</option>
+            </select>
+            <br />
+            <br />
+            <label for="appetite">How has your appetite been lately?</label>
+            <select id="appetite" name="appetite">
+                <option value=" "> </option>
+                <option value="full">very full, stuffed!</option>
+                <option value="satisfied">satistified.</option>
+                <option value="neutral">neutral, not overally hungry.</option>
+                <option value="hungry">pretty hungry.</option>
+                <option value="ravenous">starving, always hungry!</option>
+            </select>
+            <br />
+            <br />
+            <label for="mood">How are you feeling today??</label>
+            <select id="mood" name="mood">
+                <option value=" "> </option>
+                <option value="great">great!</option>
+                <option value="good">good</option>
+                <option value="okay">okay, not bad.</option>
+                <option value="bad">bad</option>
+                <option value="horrible">you do not want to know!</option>
+            </select>
+            <br />
+            <br />
+            <label for="reflect">Reflect: What is the reason for your mood/feeling?</label>
+            <br />
+            <input type="text" id="reflect" name="reflect">
+            <br />
+            <br />
+            <input type="submit" value="Submit">
+            <p id="first"></p>
+        </form>
+    </div>
+    
+<script>
+const dailyLog = document.getElementById("dailyLog")
+
+dailyLog.addEventListener("submit", surveyform)
+
+async function surveyform(event) {
+    event.preventDefault()
+    const endpoint = "app/dailyLog/"
+    const url = document.baseURI+endpoint
+    const formEvent = event.currentTarget
+
+    console.log(url)
+
+    try {
+        const formData = new FormData(formEvent)
+        console.log(formData)
+        const dailyLog_app = await sendSurvey({url, formData})
+        console.log(dailyLog_app)
+
+    } catch (error) {
+        console.log(error)
+    }
+
+    var new_url = document.baseURI+"dailyLogResults.html"
+    window.location = new_url
+    consol.log(formData)
+}
+
+async function sendSurvey({url, formData}) {
+    const plainFormData = Object.fromEntries(formData.entries())
+    const formDataJson = JSON.stringify(plainFormData)
+    console.log(formDataJson)
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+        },
+        body: formDataJson
+    }
+
+    const response = await fetch(url, options);
+    return response.json()
+}
+
+</script>
+</body>
+</html>

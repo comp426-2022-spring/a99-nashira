@@ -1,0 +1,81 @@
+<html>
+
+<head>
+    <title>myHealth</title>
+
+    <link rel='stylesheet' href='style.css' />
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <!-- navigation bar -->
+    <base href="/">
+    <section class="resources">
+        <nav>
+                <a class="logo" href="index.html"><img src="/images/logo.png">
+            <div class="nav-links">
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="dailyLogResults.html">RESULTS</a></li>
+                    <li><a href="mentalHealthResources.html">RESOURCES</a></li>
+                    <li><a href="dailyLog.html">MENTAL HEALTH LOG</a></li>
+                </ul>
+            </div>
+        </nav>
+    </section>
+
+    <!-- content -->
+    <div class='text-box'>
+        <h2>Welcome to you Mental Health Dashboard</h2>
+        <p id="id"></p>
+        <p id="sleep"></p>
+        <p id="sleepQuality"></p>
+        <p id="appetite"></p>
+        <p id="mood"></p>
+        <p id="reflect"></p>
+        <button id="results">Click here for your daily mental log overview.</button>
+
+    </div>
+    <script>
+        const result = document.getElementById("results")
+        result.addEventListener("click", getResults)
+
+        async function getResults(event) {
+            event.preventDefault();
+
+            const endpoint = "app/dailyLogResults/"
+            const url = document.baseURI+endpoint
+
+            try {
+                console.log("before await")
+                const results = await sendResults(url)
+                console.log(results)
+
+                document.getElementById("id").innerHTML = "username: "+results.uname+" Name: "+results.name
+                document.getElementById("sleep").innerHTML = "Sleep: "+results.sleep+" Quality: "+results.sleepQuality
+                document.getElementById("appetite").innerHTML= "Appetite: "+results.appetite+" Mood: "+results.mood
+                document.getElementById("reflect").innerHTML= "Reflection: "+results.reflect
+
+            } catch (error) {
+                console.log(error)
+            }
+
+        }
+
+        async function sendResults(url) {
+            console.log("send function")
+            const options = {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
+                },
+            }
+            const response = await fetch(url, options);
+            return response.json()
+        }
+    </script>
+</body>
+
+</html>

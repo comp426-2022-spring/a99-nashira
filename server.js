@@ -1,58 +1,64 @@
-//Define app using express
-var express = require("express")
-var app = express()
+// require Express.js
+const express = require('express')
+
+const app = express()
+// require morgan and fs
+const morgan = require('morgan')
 const fs = require('fs')
+// require database script file
 
-// Require database SCRIPT file
-const db = require("./database.js")
+// const logdb = require('./src/services/database.js')
+const db = require('./src/services/database.js')
 
-const port = 5000;
+const cors = require('cors')
+app.use(cors())
 
-// Make Express use its own built-in body parser for both urlencoded and JSON body data.
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// server static HTML files
+app.use(express.static('./public'))
+
+const args = require('minimist')(process.argv.slice(2))
+const port = args.port || process.env.PORT || 5000
 
 const server = app.listen(port, () => {
-    console.log('App is running on %PORT%'.replace('%PORT%', port))
+  console.log('App listening on port %PORT%'.replace('%PORT%', port))
 })
 
+// Allow JSON body messages on all endpoints
+app.use(express.json())
+// Allow URL encoded body messages on all endpoints
+app.use(express.urlencoded({extended: true }))
+
+//Define base endpoint
 app.get('/app/', (req, res) => {
-    const statusCode = 200;
-    const statusMessage = 'OK';
-    res.status(statusCode).end(statusCode + ' ' + statusMessage);
-    res.type("text/plain");
+  res.statusCode = 200 
+  res.statusMessage = 'OK'
+  res.writeHead(res.statusCode, {'Content-Type' : 'text/plain'})
+  res.end(res.statusCode + ' ' + res.statusMessage)
 })
 
-// app.get('/app/SignUp/:username/:password', (req, res) => {
-//     //checks if user name and password already exists
+// backend for asking questions
+app.post('/app/dailyLog', (req, res, next) => {
+  let data = {
+      uname: req.body.uname,
+      name: req.body.name,
+      sleep: req.body.sleep,
+      sleepQuality: req.body.sleepQuality,
+      appetite: req.body.appetite,
+      mood: req.body.mood,
+      reflect: req.body.reflect
+  }
 
-
-//     if(result["COUNT(*)"] != 0){
-//         res.status(200).send("Enter different username");
-//     } else {
-
-
-//     }
-// })
-
-app.get('/app/LogIn/:username/:password', (req, res) => {
-    //checks if user name and password are in databse, if so, takes user to home page and gives data to front end
-    const stmt = db.prepare("SELECT * FROM mentalTracker WHERE username='" + req.params.username + "' AND password= '" + req.params.password + "'")
-    const data = stmt.get()
-    if(data === undefined){
-        res.send("Incorrect username or password. Please try again!")
-    }
-    const username = data.username
-    const record = data.record
+  const stmt = db.prepare('INSERT INTO mentalTracker (uname, name, sleep, sleepQuality, appetite, mood, reflect) VALUES (?, ?, ?, ?, ?, ?, ?)')
+  const info = stmt.run(data.uname, data.name, data.sleep, data.sleepQuality, data.appetite, data.mood, data.reflect)
+  res.status(200).json({'uname': data.uname, 'name': data.name, 'sleep': data.sleep, 'sleepQuality': data.sleepQuality, 'appetite': data.appetite, 'mood': data.mood, 'reflect': data.reflect})
 })
 
+app.get('/app/dailyLogResults', (req, res, next) => {
+  const stmt = db.prepare('SELECT * FROM mentalTracker ORDER BY id DESC LIMIT 1').get()
+  res.status(200).json(stmt)
+})
 
-
-//app.use(initialize fields in database) create account
-
-//delete account
-
-//login 
-
-
-
+//default response for any other request
+app.use(function(req, res) {
+  res.status(404).send('404 NOT FOUND')
+})
