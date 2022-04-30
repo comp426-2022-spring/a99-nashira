@@ -5,12 +5,25 @@
 You don't need to accept this assignment since you are already assigned to teams. So, there is not assignment invite link for a99.
 
 ## Summary 
+ Our team has constructed a mental health log for students. On this application, one can log in/sign up to complete a given survey that asks some basic information. Basic information includes your mood, how well you slept, how many hours you slept, etc. There is also a resources page which provides different links to mental health resources.
 
-COMP426 final project template repository.
-All your code and documentation goes here.
-Change this text to be a brief description of your final project.
-Put the name of your project in the header above.
-You will change everything below to be the main technical documentation, as outlined below.
+## Installation Requirements
+1. Open a new terminal on your machine
+2. Clone our repository from Github: a99-nashira into your IDE
+3. Open a new terminal in your editor 
+4. Type npm install {dependency name}. Repeat this step for each dependency listed below to make sure you install all the required dependencies.
+
+## Dependency Lists
+We used the following dependencies for our application:
+    "better-sqlite3": "^7.5.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "fs": "^0.0.1-security",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15"
+
+## Run Instructions 
+
 
 ## First steps
 
