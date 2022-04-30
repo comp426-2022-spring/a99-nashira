@@ -58,7 +58,7 @@
             <select id="appetite" name="appetite">
                 <option value=" "> </option>
                 <option value="full">very full, stuffed!</option>
-                <option value="satisfied">satistified.</option>
+                <option value="satisfied">satistified</option>
                 <option value="neutral">neutral, not overally hungry.</option>
                 <option value="hungry">pretty hungry.</option>
                 <option value="ravenous">starving, always hungry!</option>
@@ -87,6 +87,7 @@
         </form>
         
         <p id="id"></p>
+        <p id="appetite"></p>
         <p id="sleep"></p>
         <p id="mood"></p>
     </div>
@@ -108,14 +109,22 @@ async function surveyform(event) {
         const formData = new FormData(formEvent)
         console.log(formData)
         const dailyLog_app = await sendSurvey({url, formData})
-        document.getElementById("dailyLog").innerHTML = "Here is your suggestions " + dailyLog_app.name
-        if(dailyLog_app.sleep < 3){
-            document.getElementById("sleep").innerHTML = "Sleep More"
-        }
+        document.getElementById("dailyLog").innerHTML = "Here are your customized suggestions " + dailyLog_app.name
+        if(dailyLog_app.sleep < 4){
+            document.getElementById("sleep").innerHTML = "According to medical experts, you need at least 6-8 hours of sleep. Be mindful of active screens and maintain a healthy diet for better sleep."
+        } 
         else{
-            document.getElementById("sleep").innerHTML = "Glad you got some rest"
+            document.getElementById("sleep").innerHTML = "Glad you got some rest, but make sure to maintain a regular sleep schedule."
         }
-        document.getElementById("mood").innerHTML = "Mood: " + dailyLog_app.mood
+        if(dailyLog_app.mood === "bad" || dailyLog_app.mood === "horrible"){
+            document.getElementById("mood").innerHTML = "Awww, sorry to hear that! Try to reflect on your day and use some of the 'mental health resources' to meditate or calm your mind."
+        } 
+        else{
+            document.getElementById("mood").innerHTML = "It's nice to hear you are doing well! Make sure to give yourself self-care time."
+        }
+        if(dailyLog_app.appetite === "satisfied"){
+            document.getElementById("appetite").innerHTML = "Good that you are taking care of yourself! Keep eating healthy!"
+        } 
         console.log(dailyLog_app)
         console.log(url)
 

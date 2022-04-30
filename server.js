@@ -61,24 +61,21 @@ app.post('/app/dailyLog/', (req, res, next) => {
     mood: req.body.mood,
     reflect: req.body.reflect
 }
-  const stmt = db.prepare("UPDATE mentalTracker SET name='"+ data.name +"' ,mood='"+ data.mood +"',sleep='"+ data.sleep +"' WHERE uname='" + req.params.uname + "'")
-  
-  return res.status(200).send({'name': data.name, 'mood': data.mood, 'sleep': data.sleep})
+  const stmt = db.prepare("UPDATE mentalTracker SET name='"+ data.name +"' ,mood='"+ data.mood +"',sleep='"+ data.sleep +"',sleepQuality='"+ data.sleepQuality +"',appetite='"+ data.appetite +"',reflect='"+ data.reflect +"' WHERE uname='" + req.params.uname + "'")
+
+  return res.status(200).send({'name': data.name, 'sleep': data.sleep, 'sleepQuality': data.sleepQuality, 'appetite': data.appetite, 'mood': data.mood, 'reflect': data.reflect})
 })
 
-app.post('/app/dailyLogResults/', (req, res, next) => {
-
-  const stmt = db.prepare("SELECT * FROM mentalTracker where uname='" + req.body.uname + "'")
-  const search = stmt.get()
-  console.log(search)
-
+app.get('/app/dailyLogResults', (req, res, next) => {
+  const stmt = db.prepare('SELECT * FROM mentalTracker ORDER BY id DESC LIMIT 1').get()
+  res.status(200).json(stmt)
 })
 
 app.post('/app/signup/', (req, res, next) =>{
    const stmt = db.prepare("SELECT COUNT(*) FROM mentalTracker where uname='" + req.body.uname + "'")
    const search = stmt.get()
    console.log(search)
-   if(search["COUNT(*)"] === 1){
+   if(search["COUNT(*)"] !== 0){
      return res.status(200).send({message: "This username already exists, please try another one!"})
    }
    else{

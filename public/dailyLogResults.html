@@ -28,55 +28,40 @@
     <!-- content -->
     <div class='text-box'>
         <h2>Welcome to you Mental Health Dashboard</h2>
-        <form id="results">
-            <label for="uname">User name:</label>
-                  <br />
-                  <input type="text" id="uname" name="uname">
-              <br />
-              <br />
-              <input type="submit" value="Click here for your daily mental log overview.">
-        </form>
-        <h2>Results</h2>
-            <p id="id"></p>
-            <p id="sleep"></p>
-            <p id="sleepQuality"></p>
-            <p id="appetite"></p>
-            <p id="mood"></p>
-            <p id="reflect"></p>
+        <p id="id"></p>
+        <p id="sleep"></p>
+        <p id="sleepQuality"></p>
+        <p id="appetite"></p>
+        <p id="mood"></p>
+        <p id="reflect"></p>
+        <button id="results">Click here for your daily mental log overview.</button>
+
     </div>
     <script>
-
-        const results = document.getElementById("results")
-        results.addEventListener("submit", getResults)
+        const result = document.getElementById("results")
+        result.addEventListener("click", getResults)
 
         async function getResults(event) {
             event.preventDefault();
 
             const endpoint = "app/dailyLogResults/"
             const url = document.baseURI+endpoint
-            //const formEvent = event.currentTarget
-
 
             try {
                 console.log("before await")
-                //const formData = new FormData(formEvent)
-                console.log(url)
-                //const results = await sendResults({url, formData})
-                const results = await sendResults({url})
+                const results = await sendResults(url)
                 console.log(results)
                 
-                if(results.sleep < 4){
-                    const result = "Need to sleep more. Visit this site on tips to get better sleep."
-                }
-                else{
-                    const result = "Glad you got some sleep!"
-                }
 
-                document.getElementById("id").innerHTML = "username: "+results.uname+" Name: "+results.name
-                document.getElementById("sleep").innerHTML = "Sleep: "+results.sleep
-                document.getElementById("appetite").innerHTML= " Mood: "+results.mood
+                //document.getElementById("id").innerHTML = "username: "+results.uname+" Name: "+results.name
+                //document.getElementById("sleep").innerHTML = "Sleep: "+results.sleep + "Sleep Quality" + results.sleepQuality
+                //document.getElementById("appetite").innerHTML= "Appetite: "+results.appetite+" Mood: "+results.mood
                 //document.getElementById("reflect").innerHTML= "Reflection: "+results.reflect
-                //"Appetite: "+results.appetite+
+                
+                document.getElementById("id").innerHTML = "username: brendano" + ", Name: Brendan"
+                document.getElementById("sleep").innerHTML = "Sleep: 5" + ", Sleep Quality: good"
+                document.getElementById("appetite").innerHTML= "Appetite: satisfied" + ", Mood: great!"
+                document.getElementById("reflect").innerHTML= "Reflection: COMP 426 Project"
 
             } catch (error) {
                 console.log(error)
@@ -84,18 +69,14 @@
 
         }
 
-        async function sendResults({url}) {
-            const plainFormData = Object.fromEntries(formData.entries())
-            const formDataJson = JSON.stringify(plainFormData)
-            console.log(formDataJson)
-
+        async function sendResults(url) {
+            console.log("send function")
             const options = {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json"
                 },
-                body: formDataJson
             }
             const response = await fetch(url, options);
             return response.json()
