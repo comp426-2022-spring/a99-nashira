@@ -27,6 +27,7 @@
     <!-- content -->
     <div class='text-box'>
         <form id="dailyLog">
+            
             <label for="uname">User name:</label>
             <br />
             <input type="text" id="uname" name="uname">
@@ -82,7 +83,12 @@
             <br />
             <input type="submit" value="Submit">
             <p id="first"></p>
+
         </form>
+        
+        <p id="id"></p>
+        <p id="sleep"></p>
+        <p id="mood"></p>
     </div>
     
 <script>
@@ -91,26 +97,34 @@ const dailyLog = document.getElementById("dailyLog")
 dailyLog.addEventListener("submit", surveyform)
 
 async function surveyform(event) {
+
     event.preventDefault()
     const endpoint = "app/dailyLog/"
     const url = document.baseURI+endpoint
-    const formEvent = event.currentTarget
-
     console.log(url)
+    const formEvent = event.currentTarget
 
     try {
         const formData = new FormData(formEvent)
         console.log(formData)
         const dailyLog_app = await sendSurvey({url, formData})
+        document.getElementById("dailyLog").innerHTML = "Here is your suggestions " + dailyLog_app.name
+        if(dailyLog_app.sleep < 3){
+            document.getElementById("sleep").innerHTML = "Sleep More"
+        }
+        else{
+            document.getElementById("sleep").innerHTML = "Glad you got some rest"
+        }
+        document.getElementById("mood").innerHTML = "Mood: " + dailyLog_app.mood
         console.log(dailyLog_app)
+        console.log(url)
 
     } catch (error) {
         console.log(error)
     }
 
-    var new_url = document.baseURI+"dailyLogResults.html"
-    window.location = new_url
-    consol.log(formData)
+    //var new_url = document.baseURI+"dailyLogResults.html"
+    //window.location = new_url
 }
 
 async function sendSurvey({url, formData}) {

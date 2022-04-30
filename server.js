@@ -11,13 +11,14 @@ const fs = require('fs')
 const db = require('./src/services/database.js')
 
 const cors = require('cors')
+const { restart } = require('nodemon')
 app.use(cors())
 
 // server static HTML files
 app.use(express.static('./public'))
 
 const args = require('minimist')(process.argv.slice(2))
-const port = args.port || process.env.PORT || 5000
+const port = args.port || process.env.PORT || 5555
 
 const server = app.listen(port, () => {
   console.log('App listening on port %PORT%'.replace('%PORT%', port))
@@ -31,31 +32,81 @@ app.use(express.urlencoded({extended: true }))
 //Define base endpoint
 app.get('/app/', (req, res) => {
   res.statusCode = 200 
-  res.statusMessage = 'OK'
+  res.statusMessage = 'OK Working'
   res.writeHead(res.statusCode, {'Content-Type' : 'text/plain'})
   res.end(res.statusCode + ' ' + res.statusMessage)
 })
 
 // backend for asking questions
-app.post('/app/dailyLog', (req, res, next) => {
-  let data = {
-      uname: req.body.uname,
-      name: req.body.name,
-      sleep: req.body.sleep,
-      sleepQuality: req.body.sleepQuality,
-      appetite: req.body.appetite,
-      mood: req.body.mood,
-      reflect: req.body.reflect
-  }
+app.post('/app/dailyLog/', (req, res, next) => {
+  // let data = {
+  //     uname: req.body.uname,
+  //     name: req.body.name,
+  //     sleep: req.body.sleep,
+  //     sleepQuality: req.body.sleepQuality,
+  //     appetite: req.body.appetite,
+  //     mood: req.body.mood,
+  //     reflect: req.body.reflect
+  // }
 
-  const stmt = db.prepare('INSERT INTO mentalTracker (uname, name, sleep, sleepQuality, appetite, mood, reflect) VALUES (?, ?, ?, ?, ?, ?, ?)')
-  const info = stmt.run(data.uname, data.name, data.sleep, data.sleepQuality, data.appetite, data.mood, data.reflect)
-  res.status(200).json({'uname': data.uname, 'name': data.name, 'sleep': data.sleep, 'sleepQuality': data.sleepQuality, 'appetite': data.appetite, 'mood': data.mood, 'reflect': data.reflect})
+  // const stmt = db.prepare('INSERT INTO mentalTracker (uname, name, sleep, sleepQuality, appetite, mood, reflect) VALUES (?, ?, ?, ?, ?, ?, ?)')
+  // const info = stmt.run(data.uname, data.name, data.sleep, data.sleepQuality, data.appetite, data.mood, data.reflect)
+  // res.status(200).json({'uname': data.uname, 'name': data.name, 'sleep': data.sleep, 'sleepQuality': data.sleepQuality, 'appetite': data.appetite, 'mood': data.mood, 'reflect': data.reflect})
+  let data = {
+    uname: req.body.uname,
+    name: req.body.name,
+    sleep: req.body.sleep,
+    sleepQuality: req.body.sleepQuality,
+    appetite: req.body.appetite,
+    mood: req.body.mood,
+    reflect: req.body.reflect
+}
+  const stmt = db.prepare("UPDATE mentalTracker SET name='"+ data.name +"' ,mood='"+ data.mood +"',sleep='"+ data.sleep +"' WHERE uname='" + req.params.uname + "'")
+  
+  return res.status(200).send({'name': data.name, 'mood': data.mood, 'sleep': data.sleep})
 })
 
-app.get('/app/dailyLogResults', (req, res, next) => {
-  const stmt = db.prepare('SELECT * FROM mentalTracker ORDER BY id DESC LIMIT 1').get()
-  res.status(200).json(stmt)
+app.post('/app/dailyLogResults/', (req, res, next) => {
+
+  const stmt = db.prepare("SELECT * FROM mentalTracker where uname='" + req.body.uname + "'")
+  const search = stmt.get()
+  console.log(search)
+
+})
+
+app.post('/app/signup/', (req, res, next) =>{
+   const stmt = db.prepare("SELECT COUNT(*) FROM mentalTracker where uname='" + req.body.uname + "'")
+   const search = stmt.get()
+   console.log(search)
+   if(search["COUNT(*)"] === 1){
+     return res.status(200).send({message: "This username already exists, please try another one!"})
+   }
+   else{
+       createAccount = db.prepare("INSERT INTO mentalTracker (uname, name, sleep, sleepQuality, appetite, mood, reflect) VALUES (?, ?, ?, ?, ?, ?, ?)")
+       createAccount.run(
+         String(req.body.uname),
+         String(""),
+         String(0),
+         String(""),
+         String(""),
+         String(""),
+         String("")
+       )
+       return res.status(200).send({message: "Your account has been created! Login in to your account!"})
+   }
+})
+
+app.post('/app/login/', (req, res) =>{
+  const stmt = db.prepare("SELECT * FROM mentalTracker where uname='" + req.body.uname + "'")
+  const search = stmt.get()
+  if(search === undefined){
+    return res.status(200).send({message:"Invalid password"})
+  }
+
+  const uname = search.uname
+  const mood = search.mood
+  return res.status(200).send({uname: uname, message: "Logged in!"})
+
 })
 
 //default response for any other request
