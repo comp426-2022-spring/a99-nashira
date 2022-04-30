@@ -24,6 +24,8 @@ We used the following dependencies for our application:
 
 ## Run Instructions 
 
+After installing dependencies, run npx nodemon server.js in your terminal.
+
 
 ## First steps
 
@@ -62,10 +64,6 @@ Some basic roles you will want to consider:
 
 You will notice that there are more roles than people in your group.
 That is because you will all be doing a hybrid job of managing a thing while working on other things.
-
-## Check in with instructional staff
-
-Schedule a few times throughout the rest of the semester for your team to check-in with your assigned instructional staff member during their scheduled office hours. 
 
 ## Assignment instructions
 
