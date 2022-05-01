@@ -35,9 +35,9 @@
                 <input type="text" id="uname" name="uname">
             <br />
             <br />
-            <input type="submit" value="Submit">
-            <p id="message"></p>
+            <input type="submit" value="Submit" class="signup-btn">
         </form>
+        <p id="message"></p>        
       </div>
     
     <script>
@@ -60,7 +60,7 @@
             document.getElementById("message").innerHTML = "Invalid username, please try again!"
           }
           else{
-            document.getElementById("login").innerHTML = "Hi "+loginCheck.uname + ", Welcome Back! Go ahead and take your mental health check up!"
+            document.getElementById("login").innerHTML = "Hello "+loginCheck.uname + ", Welcome Back! Go ahead and take your mental health check up!"
           }
           console.log(loginCheck.message)
   
@@ -69,6 +69,7 @@
       }
   
       console.log(url)
+      
       //var new_url = document.baseURI+"dailyLogResults.html"
       //window.location = new_url
   }

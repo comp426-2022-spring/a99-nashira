@@ -39,19 +39,6 @@ app.get('/app/', (req, res) => {
 
 // backend for asking questions
 app.post('/app/dailyLog/', (req, res, next) => {
-  // let data = {
-  //     uname: req.body.uname,
-  //     name: req.body.name,
-  //     sleep: req.body.sleep,
-  //     sleepQuality: req.body.sleepQuality,
-  //     appetite: req.body.appetite,
-  //     mood: req.body.mood,
-  //     reflect: req.body.reflect
-  // }
-
-  // const stmt = db.prepare('INSERT INTO mentalTracker (uname, name, sleep, sleepQuality, appetite, mood, reflect) VALUES (?, ?, ?, ?, ?, ?, ?)')
-  // const info = stmt.run(data.uname, data.name, data.sleep, data.sleepQuality, data.appetite, data.mood, data.reflect)
-  // res.status(200).json({'uname': data.uname, 'name': data.name, 'sleep': data.sleep, 'sleepQuality': data.sleepQuality, 'appetite': data.appetite, 'mood': data.mood, 'reflect': data.reflect})
   let data = {
     uname: req.body.uname,
     name: req.body.name,
@@ -61,18 +48,20 @@ app.post('/app/dailyLog/', (req, res, next) => {
     mood: req.body.mood,
     reflect: req.body.reflect
 }
-  const stmt = db.prepare("UPDATE mentalTracker SET name='"+ data.name +"' ,mood='"+ data.mood +"',sleep='"+ data.sleep +"',sleepQuality='"+ data.sleepQuality +"',appetite='"+ data.appetite +"',reflect='"+ data.reflect +"' WHERE uname='" + req.params.uname + "'")
+  
 
-  return res.status(200).send({'name': data.name, 'sleep': data.sleep, 'sleepQuality': data.sleepQuality, 'appetite': data.appetite, 'mood': data.mood, 'reflect': data.reflect})
+  const stmt = db.prepare("UPDATE mentalTracker SET name = COALESCE(?, name), sleep = COALESCE(?, sleep), sleepQuality = COALESCE(?, sleepQuality), appetite = COALESCE(?, appetite), mood = COALESCE(?, mood), reflect = COALESCE(?, reflect) WHERE uname = ?")
+  const info = stmt.run(data.name, data.sleep, data.sleepQuality, data.appetite, data.mood, data.reflect, req.body.uname)
+  return res.status(200).json({'uname': data.uname, 'name': data.name, 'sleep': data.sleep, 'sleepQuality': data.sleepQuality, 'appetite': data.appetite, 'mood': data.mood, 'reflect': data.reflect})
 })
 
-app.get('/app/dailyLogResults', (req, res, next) => {
-  const stmt = db.prepare('SELECT * FROM mentalTracker ORDER BY id DESC LIMIT 1').get()
+app.get('/app/dailyLogResults/:uname', (req, res, next) => {
+  const stmt = db.prepare("SELECT * FROM mentalTracker WHERE uname='" + req.params.uname + "'").get()
   res.status(200).json(stmt)
 })
 
 app.post('/app/signup/', (req, res, next) =>{
-   const stmt = db.prepare("SELECT COUNT(*) FROM mentalTracker where uname='" + req.body.uname + "'")
+   const stmt = db.prepare("SELECT COUNT(*) FROM mentalTracker WHERE uname='" + req.body.uname + "'")
    const search = stmt.get()
    console.log(search)
    if(search["COUNT(*)"] !== 0){
@@ -94,7 +83,7 @@ app.post('/app/signup/', (req, res, next) =>{
 })
 
 app.post('/app/login/', (req, res) =>{
-  const stmt = db.prepare("SELECT * FROM mentalTracker where uname='" + req.body.uname + "'")
+  const stmt = db.prepare("SELECT * FROM mentalTracker WHERE uname='" + req.body.uname + "'")
   const search = stmt.get()
   if(search === undefined){
     return res.status(200).send({message:"Invalid password"})

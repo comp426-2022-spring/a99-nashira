@@ -28,40 +28,59 @@
     <!-- content -->
     <div class='text-box'>
         <h2>Welcome to you Mental Health Dashboard</h2>
+        <form id="results">
+            <label for="uname">User name:</label>
+            <br />
+            <input type="text" id="uname" name="uname">
+            <br />
+            <br />
+            <input type="submit" value="Submit" class="signup-btn">
+        </form>
         <p id="id"></p>
         <p id="sleep"></p>
         <p id="sleepQuality"></p>
         <p id="appetite"></p>
         <p id="mood"></p>
         <p id="reflect"></p>
-        <button id="results">Click here for your daily mental log overview.</button>
+        <!--<button id="results">Click here for your daily mental log overview.</button>-->
 
     </div>
     <script>
+
         const result = document.getElementById("results")
-        result.addEventListener("click", getResults)
+        result.addEventListener("submit", getResults)
 
         async function getResults(event) {
             event.preventDefault();
 
             const endpoint = "app/dailyLogResults/"
             const url = document.baseURI+endpoint
+            
+            const formEvent = event.currentTarget
 
             try {
+                const formData = new FormData(formEvent)
+                const plainFormData = Object.fromEntries(formData.entries())
+                const formDataJson = JSON.stringify(plainFormData)
+                var json = JSON.parse(formDataJson)
+                console.log(json["uname"])
+                const uname = json["uname"]
+                console.log(uname)
                 console.log("before await")
-                const results = await sendResults(url)
+                const updatedUrl = url+uname
+                const results = await sendResults(updatedUrl)
                 console.log(results)
                 
 
-                //document.getElementById("id").innerHTML = "username: "+results.uname+" Name: "+results.name
-                //document.getElementById("sleep").innerHTML = "Sleep: "+results.sleep + "Sleep Quality" + results.sleepQuality
-                //document.getElementById("appetite").innerHTML= "Appetite: "+results.appetite+" Mood: "+results.mood
-                //document.getElementById("reflect").innerHTML= "Reflection: "+results.reflect
+                document.getElementById("id").innerHTML = "username: "+results.uname+", Name: "+results.name
+                document.getElementById("sleep").innerHTML = "Sleep: "+results.sleep + ", Sleep Quality: " + results.sleepQuality
+                document.getElementById("appetite").innerHTML= "Appetite: "+results.appetite+", Mood: "+results.mood
+                document.getElementById("reflect").innerHTML= "Reflection: "+results.reflect
                 
-                document.getElementById("id").innerHTML = "username: brendano" + ", Name: Brendan"
-                document.getElementById("sleep").innerHTML = "Sleep: 5" + ", Sleep Quality: good"
-                document.getElementById("appetite").innerHTML= "Appetite: satisfied" + ", Mood: great!"
-                document.getElementById("reflect").innerHTML= "Reflection: COMP 426 Project"
+                //document.getElementById("id").innerHTML = "username: brendano" + ", Name: Brendan"
+                //document.getElementById("sleep").innerHTML = "Sleep: 5" + ", Sleep Quality: good"
+                //document.getElementById("appetite").innerHTML= "Appetite: satisfied" + ", Mood: great!"
+                //document.getElementById("reflect").innerHTML= "Reflection: COMP 426 Project"
 
             } catch (error) {
                 console.log(error)
@@ -70,6 +89,7 @@
         }
 
         async function sendResults(url) {
+            
             console.log("send function")
             const options = {
                 method: "GET",
@@ -79,6 +99,7 @@
                 },
             }
             const response = await fetch(url, options);
+            console.log(response)
             return response.json()
         }
     </script>
