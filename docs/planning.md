@@ -3,7 +3,7 @@
 ## Meeting 1
 March 28, 2022
 
-Decided what we would do for our webpage: a mental health page that is specific to classes. This would be a page that would allow students to track how they are feeling in each class. Ideally in the future the prfessors would be able to make an account and track how their students are doing.
+Decided what we would do for our webpage: a mental health page that is specific to classes. This would be a page that would allow students to track how they are feeling. Ideally in the future the professors would be able to make an account and track how their students are doing.
 
 Decided we would work on the project together as a group.
 
