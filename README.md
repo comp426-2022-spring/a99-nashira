@@ -24,3 +24,4 @@ Our team has constructed a mental health log for students. On this application, 
 - morgan (Version: 1.10.0),
 - nodemon (Version: 2.0.15)
 
+## Make sure to create an account and take the mental health questionnaire to get customized suggestions!
