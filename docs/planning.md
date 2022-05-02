@@ -15,7 +15,7 @@ Worked on the front end, created our server.js file, and started creating some e
 ## Meeting 3
 April 19, 2022
 
-Further delegated tasks: Taylor and Brendan will work on the front end while Latlitha and Sarah will work on the back end.
+Further delegated tasks: Taylor and Brendan will work on the documentation and front end styling while Lalitha and Sarah will work on the back end.
 Brendan will create a resource page.
 
 ## Meeting 4
