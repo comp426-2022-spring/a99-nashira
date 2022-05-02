@@ -25,17 +25,18 @@ Connection: keep-alive
 Keep-Alive: timeout=5
 ```
 
-### /app/dailyLogResults (GET)
-
+### /app/dailyLogResults/:uname (GET)
+    ex: {"uname":"vlalitha"}
+    
 #### Request cURL
 
 ```
-curl http://localhost:5000/app/dailyLogResults
+curl http://localhost:5000/app/dailyLogResults/vlalitha
 ```
 
 #### Response body
 ```
-{"id":1,"uname":"vlalitha","name":"Lalitha","sleep":8,"sleepQuality":"good","appetite":"neutral","mood":"okay","reflect":"Final Exam stress!"}
+{"id":1,"uname":"vlalitha","name":"Lalitha","sleep":2,"sleepQuality":"good","appetite":"satisfied","mood":"good","reflect":"Finals"}
 ```
 
 #### Response headers
@@ -51,7 +52,7 @@ Date: Sat, 30 Apr 2022 14:35:20 GMT
 Connection: keep-alive
 ```
 
-### /app/dailyLog (POST)
+### /app/dailyLog/ (POST)
 
 #### Request cURL
 
