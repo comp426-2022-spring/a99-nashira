@@ -7,7 +7,7 @@ You don't need to accept this assignment since you are already assigned to teams
 ## Summary 
  Our team has constructed a mental health log for students. On this application, one can log in/sign up to complete a given survey that asks some basic information. Basic information includes your mood, how well you slept, how many hours you slept, etc. There is also a resources page which provides different links to mental health resources.
 
-# Installation Requirements
+# Installation & Run Requirements
 
 ## 1. Open the terminal on your local machine and clone our repository from Github into your IDE: 
  - https://github.com/comp426-2022-spring/a99-nashira.git 
@@ -26,8 +26,4 @@ We used the following dependencies for our application:
     fs (Version: 0.0.1-security),
     morgan (Version: 1.10.0),
     nodemon (Version: 2.0.15)
-
-## Run Instructions 
-
-After installing dependencies, run npx nodemon server.js in your terminal.
 
