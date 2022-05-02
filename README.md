@@ -1,74 +1,27 @@
-# a99 Final Project
+# a99-nashira final project
 
-## Mental Health Tracker
-
-You don't need to accept this assignment since you are already assigned to teams. So, there is not assignment invite link for a99.
+# Mental Health Tracker
 
 ## Summary 
- Our team has constructed a mental health log for students. On this application, one can log in/sign up to complete a given survey that asks some basic information. Basic information includes your mood, how well you slept, how many hours you slept, etc. There is also a resources page which provides different links to mental health resources.
+Our team has constructed a mental health log for students. On this application, one can log in/sign up to complete a given survey that asks some basic information. Basic information includes your mood, how well you slept, how many hours you slept, etc. There is also a resources page which provides different links to mental health resources.
 
-## Installation Requirements
-1. Open a new terminal on your machine
-2. Clone our repository from Github: a99-nashira into your IDE
-3. Open a new terminal in your editor 
-4. Type npm install {dependency name}. Repeat this step for each dependency listed below to make sure you install all the required dependencies.
+# Installation & Run Instructions
 
-## Dependency Lists
-We used the following dependencies for our application:
-    better-sqlite3 (Version: 7.5.1),
-    cors (Version: 2.8.5),
-    express (Version: 4.18.1),
-    fs (Version: 0.0.1-security),
-    morgan (Version: 1.10.0),
-    nodemon (Version: 2.0.15)
+## 1. Open the terminal on your local machine and clone our repository from Github into your IDE.
+ - https://github.com/comp426-2022-spring/a99-nashira.git 
+## 2. Open a new terminal in your IDE to install dependencies. Make sure you install all the required dependencies listed below.
+ - npm install {dependency names}
+## 3. After installing all the dependencies, you can run the project.
+- npx nodemon server.js
+## 4. Then, open the Browser(ex: Chrome, Safari) and copy & paste the following link in your web browser to land to the home page of our web application.
+- http://localhost:5555/index.html
 
-## Run Instructions 
+## Dependency List: 
+- better-sqlite3 (Version: 7.5.1),
+- cors (Version: 2.8.5),
+- express (Version: 4.18.1),
+- fs (Version: 0.0.1-security),
+- morgan (Version: 1.10.0),
+- nodemon (Version: 2.0.15)
 
-After installing dependencies, run npx nodemon server.js in your terminal.
-
-
-## First steps
-
-Other steps that you will need to take after your team has accepted the assignment:
-
-1. Choose a license and update the LICENSE file accordingly. 
-2. Edit this README.md file and use it as the main location of your technical documentation with links out to information contained under `/docs/`.
-3. Create a `/docs/` directory for more elaborate documentation of your API, planning notes, etc.
-4. Make sure that all of your team members have access to the repository as administrators.
-5. Create a project under the **Projects** tab. Use this to manage your planning. Create a To-do list, etc. Explore the tools available and user them to manage your project.
-7. Assign team roles and include a listing of those roles in this README.md file or in another file under `/docs/`.
-8. Then put your entire development workflow in this repository.
-9. Use **Pull requests** to propose changes and incorporate them into your code from various team members. 
-10. Use **Issues** to identify and track bugs and also to communicate about various aspects of the project.
-
-## Team mangement
-
-Plan to meet with your team ASAP.
-Talk through identifying roles within your team.
-
-Try to figure out what each of you are good at/enjoy doing and try to work out roles that incorporate that.
-
-Some basic roles you will want to consider:
-
-1. A review manager - someone to review pull requests and merge or reject them and manage the related discussions
-2. A plan manager - someone to keep an eye on the overall plan and keep the project tab/to-do list up to date
-3. A documentation manager - someone to keep the documentation in order and identify what is missing and needs to be documented
-4. A release manager - someone to manage the packaging and release process for your prototype package
-5. A project manager - someone keeping track of all the moving parts and make sure that everything that needs to happen is happening.
-5. Roles for team members to take charge or different parts of the project. Possible roles:
-    1. Front end lead
-    2. Back end lead
-    3. Database lead
-    4. Design lead
-    5. Etc.
-
-You will notice that there are more roles than people in your group.
-That is because you will all be doing a hybrid job of managing a thing while working on other things.
-
-## Assignment instructions
-
-And that is about all you need to get started.
-
-All the rest of the assignment instructions are available at: https://comp426.johndmart.in/a/99
-
-Good skill and be creative!
+## Make sure to create an account and take the mental health questionnaire to get customized suggestions!
