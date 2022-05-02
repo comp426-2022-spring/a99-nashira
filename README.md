@@ -1,6 +1,7 @@
 # a99-nashira final project
 
 # Mental Health Tracker
+Our Team: Brendan Malley, Taylor Knoll, Lalitha Vadrevu, Sarah
 
 ## Summary 
 Our team has constructed a mental health log for students. On this application, one can log in/sign up to complete a given survey that asks some basic information. Basic information includes your mood, how well you slept, how many hours you slept, etc. There is also a resources page which provides different links to mental health resources.
