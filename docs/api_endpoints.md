@@ -5,7 +5,7 @@
 #### Request cURL
 
 ```
-curl http://localhost:5000/app/
+curl http://localhost:5555/app/
 ```
 
 #### Response body
@@ -31,7 +31,7 @@ Keep-Alive: timeout=5
 #### Request cURL
 
 ```
-curl http://localhost:5000/app/dailyLogResults/vlalitha
+curl http://localhost:5555/app/dailyLogResults/vlalitha
 ```
 
 #### Response body
@@ -57,7 +57,7 @@ Connection: keep-alive
 #### Request cURL
 
 ```
-curl -X POST -H 'Content-Type: application/json' -d '{"uname":"vlalitha","name":"Lalitha","sleep":8,"sleepQuality":"good","appetite":"neutral","mood":"okay","reflect":"Final Exam stress!"}' http://localhost:5000/app/dailyLog/ 
+curl -X POST -H 'Content-Type: application/json' -d '{"uname":"vlalitha","name":"Lalitha","sleep":8,"sleepQuality":"good","appetite":"neutral","mood":"okay","reflect":"Final Exam stress!"}' http://localhost:5555/app/dailyLog/ 
 ```
 
 #### Response body
