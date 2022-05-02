@@ -14,7 +14,7 @@ Our team has constructed a mental health log for students. On this application, 
 ## 3. After installing all the dependencies, you can run the project.
 - npx nodemon server.js
 ## 4. Then, open the Browser(ex: Chrome, Safari) and copy & paste the following link in your web browser to land to the home page of our web application.
-- https://localhost:5555/index.html
+- http://localhost:5555/index.html
 
 ## Dependency List: 
 - better-sqlite3 (Version: 7.5.1),
