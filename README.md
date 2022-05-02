@@ -7,21 +7,20 @@ Our team has constructed a mental health log for students. On this application, 
 
 # Installation & Run Instructions
 
-## 1. Open the terminal on your local machine and clone our repository from Github into your IDE: 
+## 1. Open the terminal on your local machine and clone our repository from Github into your IDE.
  - https://github.com/comp426-2022-spring/a99-nashira.git 
 ## 2. Open a new terminal in your IDE to install dependencies. Make sure you install all the required dependencies listed below.
  - npm install {dependency names}
-## 3. Run the Project.
+## 3. After installing all the dependencies, you can run the project.
 - npx nodemon server.js
-## 4. Open the Browser(Chrome, Safari) and copy & paste the following link in your web browser to land to the home page of our web application.
+## 4. Then, open the Browser(ex: Chrome, Safari) and copy & paste the following link in your web browser to land to the home page of our web application.
 - https://localhost:5555/index.html
 
 ## Dependency List: 
-We used the following dependencies for our application:
-    - better-sqlite3 (Version: 7.5.1),
-    cors (Version: 2.8.5),
-    express (Version: 4.18.1),
-    fs (Version: 0.0.1-security),
-    morgan (Version: 1.10.0),
-    nodemon (Version: 2.0.15)
+- better-sqlite3 (Version: 7.5.1),
+- cors (Version: 2.8.5),
+- express (Version: 4.18.1),
+- fs (Version: 0.0.1-security),
+- morgan (Version: 1.10.0),
+- nodemon (Version: 2.0.15)
 
