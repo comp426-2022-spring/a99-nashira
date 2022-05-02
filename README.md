@@ -2,10 +2,8 @@
 
 # Mental Health Tracker
 
-You don't need to accept this assignment since you are already assigned to teams. So, there is not assignment invite link for a99.
-
 ## Summary 
- Our team has constructed a mental health log for students. On this application, one can log in/sign up to complete a given survey that asks some basic information. Basic information includes your mood, how well you slept, how many hours you slept, etc. There is also a resources page which provides different links to mental health resources.
+Our team has constructed a mental health log for students. On this application, one can log in/sign up to complete a given survey that asks some basic information. Basic information includes your mood, how well you slept, how many hours you slept, etc. There is also a resources page which provides different links to mental health resources.
 
 # Installation & Run Instructions
 
