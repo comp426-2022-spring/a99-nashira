@@ -18,12 +18,12 @@ You don't need to accept this assignment since you are already assigned to teams
 ## 4. Open the Browser(Chrome, Safari) and copy & paste the following link in your web browser to land to the home page of our web application.
 - https://localhost:5555/index.html
 
-## Dependency Lists
+## Dependency List: 
 We used the following dependencies for our application:
-    -better-sqlite3 (Version: 7.5.1),
-    -cors (Version: 2.8.5),
-    -express (Version: 4.18.1),
-    -fs (Version: 0.0.1-security),
-    -morgan (Version: 1.10.0),
-    -nodemon (Version: 2.0.15)
+    - better-sqlite3 (Version: 7.5.1),
+    cors (Version: 2.8.5),
+    express (Version: 4.18.1),
+    fs (Version: 0.0.1-security),
+    morgan (Version: 1.10.0),
+    nodemon (Version: 2.0.15)
 
