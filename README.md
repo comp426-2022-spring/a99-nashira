@@ -20,10 +20,10 @@ You don't need to accept this assignment since you are already assigned to teams
 
 ## Dependency Lists
 We used the following dependencies for our application:
-    better-sqlite3 (Version: 7.5.1),
-    cors (Version: 2.8.5),
-    express (Version: 4.18.1),
-    fs (Version: 0.0.1-security),
-    morgan (Version: 1.10.0),
-    nodemon (Version: 2.0.15)
+    -better-sqlite3 (Version: 7.5.1),
+    -cors (Version: 2.8.5),
+    -express (Version: 4.18.1),
+    -fs (Version: 0.0.1-security),
+    -morgan (Version: 1.10.0),
+    -nodemon (Version: 2.0.15)
 
