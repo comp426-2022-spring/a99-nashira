@@ -28,6 +28,7 @@
     <!-- content -->
     <div class='text-box'>
         <h2>Welcome to you Mental Health Dashboard</h2>
+        <br>
         <form id="results">
             <label for="uname">User name:</label>
             <br />
@@ -42,8 +43,6 @@
         <p id="appetite"></p>
         <p id="mood"></p>
         <p id="reflect"></p>
-        <!--<button id="results">Click here for your daily mental log overview.</button>-->
-
     </div>
     <script>
 
@@ -52,10 +51,8 @@
 
         async function getResults(event) {
             event.preventDefault();
-
             const endpoint = "app/dailyLogResults/"
             const url = document.baseURI+endpoint
-            
             const formEvent = event.currentTarget
 
             try {
@@ -63,24 +60,19 @@
                 const plainFormData = Object.fromEntries(formData.entries())
                 const formDataJson = JSON.stringify(plainFormData)
                 var json = JSON.parse(formDataJson)
-                console.log(json["uname"])
                 const uname = json["uname"]
-                console.log(uname)
-                console.log("before await")
                 const updatedUrl = url+uname
                 const results = await sendResults(updatedUrl)
                 console.log(results)
-                
-
-                document.getElementById("id").innerHTML = "username: "+results.uname+", Name: "+results.name
-                document.getElementById("sleep").innerHTML = "Sleep: "+results.sleep + ", Sleep Quality: " + results.sleepQuality
-                document.getElementById("appetite").innerHTML= "Appetite: "+results.appetite+", Mood: "+results.mood
-                document.getElementById("reflect").innerHTML= "Reflection: "+results.reflect
-                
-                //document.getElementById("id").innerHTML = "username: brendano" + ", Name: Brendan"
-                //document.getElementById("sleep").innerHTML = "Sleep: 5" + ", Sleep Quality: good"
-                //document.getElementById("appetite").innerHTML= "Appetite: satisfied" + ", Mood: great!"
-                //document.getElementById("reflect").innerHTML= "Reflection: COMP 426 Project"
+                if(uname === undefined){
+                    document.getElementById("id").innerHTML = "Invalid Username, try again!"
+                }
+                else{
+                    document.getElementById("results").innerHTML = "Here is a record of your mental health questionnaire " + results.uname + "!"
+                    document.getElementById("sleep").innerHTML = "Sleep: "+results.sleep + ", Sleep Quality: " + results.sleepQuality
+                    document.getElementById("appetite").innerHTML= "Appetite: "+results.appetite+", Mood: "+results.mood
+                    document.getElementById("reflect").innerHTML= "Reflection: "+results.reflect
+                }
 
             } catch (error) {
                 console.log(error)
@@ -89,7 +81,6 @@
         }
 
         async function sendResults(url) {
-            
             console.log("send function")
             const options = {
                 method: "GET",

@@ -2,7 +2,7 @@
 <html>
 
   <head>
-      <title>myHealth</title>
+      <title>login</title>
   
       <link rel='stylesheet' href='style.css' />
       <meta charset="UTF-8">
@@ -21,7 +21,7 @@
                       <li><a href="dailyLogResults.html">RESULTS</a></li>
                       <li><a href="mentalHealthResources.html">RESOURCES</a></li>
                       <li><a href="dailyLog.html">MENTAL HEALTH LOG</a></li>
-                      <li><a href="login.html">LOGIN</a></li>
+                      <li><a href="delete.html">DELETE ACCOUNT</a></li>
                   </ul>
               </div>
           </nav>
@@ -43,7 +43,6 @@
     <script>
     
   const username = document.getElementById("login")
-  
   username.addEventListener("submit", userform)
   
   async function userform(event) {
@@ -69,9 +68,6 @@
       }
   
       console.log(url)
-      
-      //var new_url = document.baseURI+"dailyLogResults.html"
-      //window.location = new_url
   }
   
   async function sendLogin({url, formData}) {

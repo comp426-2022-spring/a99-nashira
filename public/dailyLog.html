@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>My Mental Health</title>
+    <title>myHealth</title>
     <link rel='stylesheet' href='style.css' />
     <meta charset="UTF-8">
 </head>
@@ -27,7 +27,6 @@
     <!-- content -->
     <div class='text-box'>
         <form id="dailyLog">
-            
             <label for="uname">User name:</label>
             <br />
             <input type="text" id="uname" name="uname">
@@ -90,17 +89,19 @@
         <p id="appetite"></p>
         <p id="sleep"></p>
         <p id="mood"></p>
+        <p id="reflect"></p>
+
         
     </div>
     
 <script>
 const dailyLog = document.getElementById("dailyLog")
+dailyLog.addEventListener("submit", logForm)
 
-dailyLog.addEventListener("submit", surveyform)
-
-async function surveyform(event) {
-
+// Set up an asynchronous function so that it will await a response.
+async function logForm(event) {
     event.preventDefault()
+    // Build up the endpoint URL
     const endpoint = "app/dailyLog/"
     const url = document.baseURI+endpoint
     console.log(url)
@@ -109,30 +110,41 @@ async function surveyform(event) {
     try {
         const formData = new FormData(formEvent)
         console.log(formData)
-        const dailyLog_app = await sendSurvey({url, formData})
+        const dailyLog_app = await sendForm({url, formData})
         document.getElementById("dailyLog").innerHTML = "Here are your customized suggestions " + dailyLog_app.name
 
         //sleep
-        if(dailyLog_app.sleep < 4){
+        if(dailyLog_app.sleep < 5){
             document.getElementById("sleep").innerHTML = "According to medical experts, you need at least 6-8 hours of sleep. Be mindful of active screens and maintain a healthy diet for better sleep."
         } 
+        else if(dailyLog_app.sleep === undefined){
+
+        }
         else{
-            document.getElementById("sleep").innerHTML = "Glad you got some rest, but make sure to maintain a regular sleep schedule."
+            document.getElementById("sleep").innerHTML = "Glad you slept well, but make sure to maintain a regular sleep schedule."
         }
 
         //mood
         if(dailyLog_app.mood === "bad" || dailyLog_app.mood === "horrible"){
             document.getElementById("mood").innerHTML = "Awww, sorry to hear that! Try to reflect on your day and use some of the 'mental health resources' to meditate or calm your mind."
         } 
+        else if(dailyLog_app.mood === undefined){
+
+        }
         else{
-            document.getElementById("mood").innerHTML = "It's nice to hear you are doing well! Make sure to give yourself self-care time."
+            document.getElementById("mood").innerHTML = "It's nice to hear you are doing well! Make sure to give yourself some self-care time."
         }
 
         //appetite
-        if(dailyLog_app.appetite === "satisfied"){
-            document.getElementById("appetite").innerHTML = "Good that you are taking care of yourself! Keep eating healthy!"
+        if(dailyLog_app.appetite === "hungry" || dailyLog_app.appetite === "ravenous"){
+            document.getElementById("appetite").innerHTML = "Healthy eating is not about strict limitations, staying unrealistically thin, or depriving yourself of the foods you love. It is about feeling great, having more energy, improving your health, and boosting your mood. Here is a tip to healthy eating: maintain a balance of protein, fat, carbohydrates, fiber, vitamins, and minerals in your diet."
+        }else if(dailyLog_app.appetite === undefined){
+
+        }else{
+            document.getElementById("appetite").innerHTML = "Great that you are taking care of your diet and eating well. Make sure you maintain a balance of protein, fat, carbohydrates, fiber, vitamins, and minerals in your diet."
         } 
 
+        document.getElementById("reflect").innerHTML = "It might feel unnecessary, but reflecting on your day is a great way to learn more about yourself and make adjustments to grow. So continue to take the mental health check in each day and reflect on your day!"
 
         console.log(dailyLog_app)
         console.log(url)
@@ -145,7 +157,7 @@ async function surveyform(event) {
     //window.location = new_url
 }
 
-async function sendSurvey({url, formData}) {
+async function sendForm({url, formData}) {
     const plainFormData = Object.fromEntries(formData.entries())
     const formDataJson = JSON.stringify(plainFormData)
     console.log(formDataJson)

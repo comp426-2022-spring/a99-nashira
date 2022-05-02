@@ -38,6 +38,8 @@ app.get('/app/', (req, res) => {
 })
 
 // backend for asking questions
+
+//logs data inputted in the user
 app.post('/app/dailyLog/', (req, res, next) => {
   let data = {
     uname: req.body.uname,
@@ -48,18 +50,22 @@ app.post('/app/dailyLog/', (req, res, next) => {
     mood: req.body.mood,
     reflect: req.body.reflect
 }
-  
-
   const stmt = db.prepare("UPDATE mentalTracker SET name = COALESCE(?, name), sleep = COALESCE(?, sleep), sleepQuality = COALESCE(?, sleepQuality), appetite = COALESCE(?, appetite), mood = COALESCE(?, mood), reflect = COALESCE(?, reflect) WHERE uname = ?")
   const info = stmt.run(data.name, data.sleep, data.sleepQuality, data.appetite, data.mood, data.reflect, req.body.uname)
   return res.status(200).json({'uname': data.uname, 'name': data.name, 'sleep': data.sleep, 'sleepQuality': data.sleepQuality, 'appetite': data.appetite, 'mood': data.mood, 'reflect': data.reflect})
 })
 
+//return mental health record for specific user
 app.get('/app/dailyLogResults/:uname', (req, res, next) => {
+  if(req.params.uname === undefined){
+    return res.status(200).send({message:"Invalid Username"})
+  }
+
   const stmt = db.prepare("SELECT * FROM mentalTracker WHERE uname='" + req.params.uname + "'").get()
   res.status(200).json(stmt)
 })
 
+//sign up or create account
 app.post('/app/signup/', (req, res, next) =>{
    const stmt = db.prepare("SELECT COUNT(*) FROM mentalTracker WHERE uname='" + req.body.uname + "'")
    const search = stmt.get()
@@ -82,6 +88,7 @@ app.post('/app/signup/', (req, res, next) =>{
    }
 })
 
+//login 
 app.post('/app/login/', (req, res) =>{
   const stmt = db.prepare("SELECT * FROM mentalTracker WHERE uname='" + req.body.uname + "'")
   const search = stmt.get()
@@ -90,9 +97,22 @@ app.post('/app/login/', (req, res) =>{
   }
 
   const uname = search.uname
-  const mood = search.mood
   return res.status(200).send({uname: uname, message: "Logged in!"})
 
+})
+
+//delete account
+app.post("/app/delete/", (req, res) => {
+  const stmt = db.prepare("SELECT COUNT(*) FROM mentalTracker WHERE uname='" + req.body.uname + "'")
+  const search = stmt.get()
+   if(search["COUNT(*)"] === 0){
+     return res.status(200).send({message: "This username does not exist! You cannot delete an account that has not been created!"})
+   }
+   else{
+    const stmt = db.prepare('DELETE FROM mentalTracker WHERE uname = ?')
+    const info = stmt.run(req.body.uname)
+    return res.status(200).send({message: "Your account has been deleted!"}) 
+  }
 })
 
 //default response for any other request

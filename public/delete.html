@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>signup</title>
+    <title>delete</title>
 
     <link rel='stylesheet' href='style.css' />
     <meta charset="UTF-8">
@@ -16,7 +16,6 @@
                 <ul>
                     <li><a href="index.html">HOME</a></li>
                     <li><a href="mentalHealthResources.html">RESOURCES</a></li>
-                    <li><a href="login.html">LOGIN</a></li>
                 </ul>
             </div>
         </nav>
@@ -24,16 +23,16 @@
 
     <!-- content -->
     <div class='text-box'>
-      <form id="user">
+      <form id="delete">
         
-        <label for="uname">User name:</label>
+        <label for="uname">Delete your Account!</label>
               <br />
               <input type="text" id="uname" name="uname">
           <br />
           <br />
           <input type="submit" value="Submit">
           
-        <p id="username"></p>
+        <p id="user"></p>
 
         
       </form>
@@ -42,22 +41,22 @@
   <script>
 
 
-const username = document.getElementById("user")
-username.addEventListener("submit", userform)
+const username = document.getElementById("delete")
+username.addEventListener("submit", deleteform)
 
 //async function to send input to API endpoint
-async function userform(event) {
+async function deleteform(event) {
     event.preventDefault()
-    const endpoint = "app/signup/"
+    const endpoint = "app/delete/"
     const url = document.baseURI+endpoint
     console.log(url)
     const formEvent = event.currentTarget
 
     try {
         const formData = new FormData(formEvent)
-        const userName = await sendUsername({url, formData})
-        document.getElementById("username").innerHTML = "Message: "+userName.message
-        console.log(userName.message)
+        const deleteUser = await deleteUsername({url, formData})
+        document.getElementById("user").innerHTML = "Message: "+deleteUser.message
+        console.log(deleteUser.message)
 
     } catch (error) {
         console.log(error)
@@ -66,7 +65,7 @@ async function userform(event) {
     console.log(url)
 }
 
-async function sendUsername({url, formData}) {
+async function deleteUsername({url, formData}) {
     const plainFormData = Object.fromEntries(formData.entries())
     const formDataJson = JSON.stringify(plainFormData)
     console.log(formDataJson)
