@@ -81,7 +81,7 @@ Connection: keep-alive
 #### Request cURL
 
 ```
-curl -X POST -H 'Content-Type: application/json' -d '{"uname":"vlalitha","name":"Lalitha","sleep":8,"sleepQuality":"good","appetite":"neutral","mood":"okay","reflect":"Final Exam stress!"}' http://localhost:5555/app/signup/  
+curl -X POST -H 'Content-Type: application/json' -d '{"uname":"vlalitha"}' http://localhost:5555/app/signup/  
 ```
 
 #### Response body
@@ -106,7 +106,7 @@ Keep-Alive: timeout=5
 #### Request cURL
 
 ```
-curl -X POST -H 'Content-Type: application/json' -d '{"uname":"vlalitha","name":"Lalitha","sleep":8,"sleepQuality":"good","appetite":"neutral","mood":"okay","reflect":"Final Exam stress!"}' http://localhost:5555/app/login/ 
+curl -X POST -H 'Content-Type: application/json' -d '{"uname":"vlalitha"}' http://localhost:5555/app/login/ 
 ```
 
 #### Response body
@@ -123,6 +123,31 @@ Content-Type: application/json; charset=utf-8
 Content-Length: 43
 ETag: W/"2b-hc6uJFSdAxr2kMDLO7E98wuhu6w"
 Date: Sat, 30 Apr 2022 15:14:07 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+```
+### /app/delete/ (POST)
+
+#### Request cURL
+
+```
+curl -X POST -H 'Content-Type: application/json' -d '{"uname":"Lalitha"}' http://localhost:5555/app/delete/
+```
+
+#### Response body
+```
+{"message":"Your account has been deleted!"}
+```
+
+#### Response headers
+```
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Access-Control-Allow-Origin: *
+Content-Type: application/json; charset=utf-8
+Content-Length: 99
+ETag: W/"63-cueBeKv3RuJFe42Oq2ZYKC2q8LI"
+Date: Mon, 02 May 2022 11:17:20 GMT
 Connection: keep-alive
 Keep-Alive: timeout=5
 ```
